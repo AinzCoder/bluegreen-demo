@@ -21,9 +21,9 @@ SKIP_FILES = {".env"} # local-only file, protected by .gitignore
 def project_files():
  for folder, dirs, names in os.walk("."):
     dirs[:] = [d for d in dirs if d not in SKIP_DIRS]
- for name in names:
-    if name not in SKIP_FILES:
-        yield os.path.normpath(os.path.join(folder, name))
+    for name in names:
+        if name not in SKIP_FILES:
+            yield os.path.normpath(os.path.join(folder, name))
 def scan(path):
  findings = []
  try:

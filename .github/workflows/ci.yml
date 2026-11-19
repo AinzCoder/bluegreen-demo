@@ -32,7 +32,7 @@ jobs:
         run: python -m pytest -q
 
       - name: Secret scan
-        run: python scripts/secret_scan.py
+        run: python scripts/secret_plan.py
 
       - name: SAST - Bandit
         run: bandit -r app.py demo.py scripts
