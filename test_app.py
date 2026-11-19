@@ -3,6 +3,19 @@ import re
 import threading
 from http.client import HTTPConnection
 from app import checkout, load_manifest, make_server
+from scripts.secret_plan import project_files
+
+
+def test_project_files_includes_root_and_nested_files(tmp_path, monkeypatch):
+    (tmp_path / "root.txt").write_text("root")
+    nested = tmp_path / "nested"
+    nested.mkdir()
+    (nested / "nested.txt").write_text("nested")
+    monkeypatch.chdir(tmp_path)
+
+    assert set(project_files()) == {"root.txt", "nested/nested.txt"}
+
+
 def fetch(server, path):
  connection = HTTPConnection("127.0.0.1", server.server_address[1], timeout=3)
  connection.request("GET", path)
